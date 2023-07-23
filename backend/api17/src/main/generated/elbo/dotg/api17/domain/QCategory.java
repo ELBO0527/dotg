@@ -22,6 +22,8 @@ public class QCategory extends EntityPathBase<Category> {
 
     public static final QCategory category = new QCategory("category");
 
+    public final elbo.dotg.api17.domain.Board.QBoard board;
+
     public final ListPath<Category, QCategory> children = this.<Category, QCategory>createList("children", Category.class, QCategory.class, PathInits.DIRECT2);
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
@@ -48,6 +50,7 @@ public class QCategory extends EntityPathBase<Category> {
 
     public QCategory(Class<? extends Category> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
+        this.board = inits.isInitialized("board") ? new elbo.dotg.api17.domain.Board.QBoard(forProperty("board"), inits.get("board")) : null;
         this.parent = inits.isInitialized("parent") ? new QCategory(forProperty("parent"), inits.get("parent")) : null;
     }
 

@@ -1,16 +1,12 @@
 spring:
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
   config:
     activate:
       on-profile: dev
   datasource:
-    url: jdbc:h2:mem:testdb;NON_KEYWORDS=USER
-    driverClassName: org.h2.Driver
-    username: sa
-    password:
+    url: ${url}
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: ${username}
+    password: ${password}
   jpa:
     open-in-view: true
     hibernate:
@@ -19,10 +15,3 @@ spring:
     properties:
       hibernate:
         format_sql: true
-# 로그 레벨 설정
-logging:
-  level:
-    # hibernate 가 남기는 모든 로그가 debug모드로 설정
-    # jpa hibernate가 생성하는 sql이 로거를 통해서 찍히도록 하는 설정
-    org.hibernate.SQL: debug
-    org.hibernate.type: trace # 실제 들어가는 파라미터값 찍어주는 설정

@@ -3,7 +3,7 @@ package elbo.dotg.api17.controller;
 import elbo.dotg.api17.dto.request.user.SignUpRequest;
 import elbo.dotg.api17.dto.request.user.UpdateRequest;
 import elbo.dotg.api17.dto.response.user.UserResponse;
-import elbo.dotg.api17.service.UserService;
+import elbo.dotg.api17.service.User.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
