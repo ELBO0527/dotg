@@ -1,13 +1,13 @@
-package elbo.dotg.api17.service.User;
+package elbo.dotg.api17.service.user;
 
-import elbo.dotg.api17.advice.exception.UserNotFoundException;
-import elbo.dotg.api17.advice.exception.UsernameAlreadyExistsException;
-import elbo.dotg.api17.domain.User.Role;
-import elbo.dotg.api17.domain.User.User;
+import elbo.dotg.api17.advice.exception.user.UserNotFoundException;
+import elbo.dotg.api17.advice.exception.user.UsernameAlreadyExistsException;
+import elbo.dotg.api17.domain.user.Role;
+import elbo.dotg.api17.domain.user.User;
 import elbo.dotg.api17.dto.request.user.UpdateRequest;
 import elbo.dotg.api17.dto.request.user.SignUpRequest;
 import elbo.dotg.api17.dto.response.user.UserResponse;
-import elbo.dotg.api17.repository.User.UserRepository;
+import elbo.dotg.api17.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

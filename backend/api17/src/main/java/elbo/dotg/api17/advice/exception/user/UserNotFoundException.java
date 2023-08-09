@@ -1,4 +1,4 @@
-package elbo.dotg.api17.advice.exception;
+package elbo.dotg.api17.advice.exception.user;
 
 public class UserNotFoundException extends RuntimeException{
     public UserNotFoundException() {

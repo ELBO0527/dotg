@@ -1,4 +1,4 @@
-package elbo.dotg.api17.domain.Board;
+package elbo.dotg.api17.domain.board;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -16,7 +16,7 @@ import com.querydsl.core.types.dsl.PathInits;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QBoard extends EntityPathBase<Board> {
 
-    private static final long serialVersionUID = -456049448L;
+    private static final long serialVersionUID = -2123918088L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
@@ -24,15 +24,17 @@ public class QBoard extends EntityPathBase<Board> {
 
     public final ListPath<String, StringPath> attachments = this.<String, StringPath>createList("attachments", String.class, StringPath.class, PathInits.DIRECT2);
 
-    public final elbo.dotg.api17.domain.QCategory category;
+    public final elbo.dotg.api17.domain.category.QCategory category;
 
-    public final ListPath<elbo.dotg.api17.domain.Comment, elbo.dotg.api17.domain.QComment> comments = this.<elbo.dotg.api17.domain.Comment, elbo.dotg.api17.domain.QComment>createList("comments", elbo.dotg.api17.domain.Comment.class, elbo.dotg.api17.domain.QComment.class, PathInits.DIRECT2);
+    public final ListPath<elbo.dotg.api17.domain.comment.Comment, elbo.dotg.api17.domain.comment.QComment> comments = this.<elbo.dotg.api17.domain.comment.Comment, elbo.dotg.api17.domain.comment.QComment>createList("comments", elbo.dotg.api17.domain.comment.Comment.class, elbo.dotg.api17.domain.comment.QComment.class, PathInits.DIRECT2);
 
     public final StringPath content = createString("content");
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final StringPath title = createString("title");
+
+    public final elbo.dotg.api17.domain.user.QUser user;
 
     public final NumberPath<Integer> viewCount = createNumber("viewCount", Integer.class);
 
@@ -54,7 +56,8 @@ public class QBoard extends EntityPathBase<Board> {
 
     public QBoard(Class<? extends Board> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.category = inits.isInitialized("category") ? new elbo.dotg.api17.domain.QCategory(forProperty("category"), inits.get("category")) : null;
+        this.category = inits.isInitialized("category") ? new elbo.dotg.api17.domain.category.QCategory(forProperty("category"), inits.get("category")) : null;
+        this.user = inits.isInitialized("user") ? new elbo.dotg.api17.domain.user.QUser(forProperty("user")) : null;
     }
 
 }

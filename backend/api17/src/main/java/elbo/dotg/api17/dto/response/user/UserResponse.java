@@ -1,7 +1,7 @@
 package elbo.dotg.api17.dto.response.user;
 
-import elbo.dotg.api17.domain.User.Role;
-import elbo.dotg.api17.domain.User.User;
+import elbo.dotg.api17.domain.user.Role;
+import elbo.dotg.api17.domain.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

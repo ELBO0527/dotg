@@ -1,9 +1,9 @@
-package elbo.dotg.api17.controller;
+package elbo.dotg.api17.controller.user;
 
 import elbo.dotg.api17.dto.request.user.SignUpRequest;
 import elbo.dotg.api17.dto.request.user.UpdateRequest;
 import elbo.dotg.api17.dto.response.user.UserResponse;
-import elbo.dotg.api17.service.User.UserService;
+import elbo.dotg.api17.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,17 +17,17 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
 
-    @GetMapping(value = "")
+    @GetMapping
     private ResponseEntity<List<UserResponse>> findAllUsers() {
         return ResponseEntity.ok(userService.findAllUsers());
     }
 
     @GetMapping(value = "/{id}")
-    private ResponseEntity<UserResponse> findUserById(@PathVariable long id) {
+    private ResponseEntity<UserResponse> findUserById(@PathVariable final long id) {
         return ResponseEntity.ok(userService.findUserById(id));
     }
 
-    @PostMapping(value = "")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     private ResponseEntity<String> addUser(@RequestBody SignUpRequest signUpRequest) {
         userService.signUp(signUpRequest);
@@ -36,7 +36,7 @@ public class UserController {
 
     @PutMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    private void updateUserInfo(@PathVariable long id, @RequestBody UpdateRequest updateRequest) {
+    private void updateUserInfo(@PathVariable final long id, @RequestBody final UpdateRequest updateRequest) {
         userService.updateUser(id, updateRequest);
     }
 
