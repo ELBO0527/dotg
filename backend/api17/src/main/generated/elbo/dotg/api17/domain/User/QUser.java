@@ -1,4 +1,4 @@
-package elbo.dotg.api17.domain.User;
+package elbo.dotg.api17.domain.user;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -15,11 +16,13 @@ import com.querydsl.core.types.Path;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QUser extends EntityPathBase<User> {
 
-    private static final long serialVersionUID = -1849427512L;
+    private static final long serialVersionUID = 441571816L;
 
     public static final QUser user = new QUser("user");
 
     public final elbo.dotg.api17.domain.common.QBaseTimeEntity _super = new elbo.dotg.api17.domain.common.QBaseTimeEntity(this);
+
+    public final ListPath<elbo.dotg.api17.domain.board.Board, elbo.dotg.api17.domain.board.QBoard> boards = this.<elbo.dotg.api17.domain.board.Board, elbo.dotg.api17.domain.board.QBoard>createList("boards", elbo.dotg.api17.domain.board.Board.class, elbo.dotg.api17.domain.board.QBoard.class, PathInits.DIRECT2);
 
     //inherited
     public final StringPath createdBy = _super.createdBy;

@@ -1,4 +1,4 @@
-package elbo.dotg.api17.config.security;
+package elbo.dotg.api17.config;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;

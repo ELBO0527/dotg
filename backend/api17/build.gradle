@@ -59,18 +59,20 @@ tasks.named('asciidoctor') {
 }
 
 // === ⭐ QueryDsl 빌드 옵션 (선택) ===
-def querydslDir = "$buildDir/generated/querydsl"
+//def querydslDir = "$buildDir/generated/querydsl"
+//
+//sourceSets {
+//	main.java.srcDirs += [ querydslDir ]
+//}
 
-sourceSets {
-	main.java.srcDirs += [ querydslDir ]
+//queryDSl 설정 중 duplicated된 함수 제거
+def querydslSrcDir = 'src/main/generated'
+clean {
+	delete file(querydslSrcDir)
 }
 
 tasks.withType(JavaCompile) {
-	options.annotationProcessorGeneratedSourcesDirectory = file(querydslDir)
-}
-
-clean.doLast {
-	file(querydslDir).deleteDir()
+	options.generatedSourceOutputDirectory = file(querydslSrcDir)
 }
 
 //rest docs

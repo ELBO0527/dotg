@@ -1,6 +1,6 @@
-package elbo.dotg.api17.repository.User;
+package elbo.dotg.api17.repository.user;
 
-import elbo.dotg.api17.domain.User.User;
+import elbo.dotg.api17.domain.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

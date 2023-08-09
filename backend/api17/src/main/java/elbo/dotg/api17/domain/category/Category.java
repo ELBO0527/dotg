@@ -1,6 +1,6 @@
-package elbo.dotg.api17.domain;
+package elbo.dotg.api17.domain.category;
 
-import elbo.dotg.api17.domain.Board.Board;
+import elbo.dotg.api17.domain.board.Board;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -19,21 +19,30 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column
     private String name;
+
+    @Enumerated(EnumType.STRING)
+    private CategoryType categoryType;
+
     @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn (name ="parent_id")
     private Category parent;
-    @OneToMany (mappedBy = "parent", cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "category")
+    private List<Board> boards = new ArrayList<>();
+
+    @OneToMany (mappedBy = "parent")
     private List<Category> children = new ArrayList<>();
-    @OneToOne
-    @JoinColumn(name = "board_id")
-    private Board board;
+
     @Builder
-    public Category(Long id, String name, Category parent, List<Category> children, Board board) {
+    public Category(Long id, String name, CategoryType categoryType, Category parent, List<Board> boards, List<Category> children) {
         this.id = id;
         this.name = name;
+        this.categoryType = categoryType;
         this.parent = parent;
+        this.boards = boards;
         this.children = children;
-        this.board = board;
     }
 }
