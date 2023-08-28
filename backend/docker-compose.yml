@@ -4,10 +4,10 @@ services:
     image: mysql
     environment:
       MYSQL_DATABASE: userdb
-      MYSQL_USER: user
-      MYSQL_PASSWORD: userpwd
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
       MYSQL_ROOT_HOST: '%'
-      MYSQL_ROOT_PASSWORD: rootpwd
+      MYSQL_ROOT_PASSWORD: 1234dd
     volumns:
       - ./db/data:/var/lib/mysql
     ports:

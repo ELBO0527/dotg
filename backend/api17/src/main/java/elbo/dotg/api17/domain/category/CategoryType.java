@@ -1,7 +1,7 @@
 package elbo.dotg.api17.domain.category;
 
 public enum CategoryType {
-    BOARD("BOARD", "c01");
+    BOARD("NOTICE", "c01");
 
     private final String categoryName;
     private final String categoryCode;
