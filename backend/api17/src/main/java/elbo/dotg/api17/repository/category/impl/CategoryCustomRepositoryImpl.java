@@ -2,6 +2,7 @@ package elbo.dotg.api17.repository.category.impl;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import elbo.dotg.api17.domain.category.Category;
+import elbo.dotg.api17.domain.category.QCategory;
 import elbo.dotg.api17.repository.category.CategoryCustomRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -16,7 +17,19 @@ public class CategoryCustomRepositoryImpl implements CategoryCustomRepository {
 
     @Override
     public List<Category> findAllInnerFetchJoin() {
-        return null;
+
+        QCategory parent = new QCategory("parent");
+        QCategory child = new QCategory("child");
+
+        return jpaQueryFactory.selectFrom(parent)
+                .distinct()
+                .leftJoin(parent.children, child)
+                .fetchJoin()
+                .where(
+                        parent.parent.isNull()
+                )
+                .orderBy(parent.id.asc(), child.id.asc())
+                .fetch();
     }
 
     @Override

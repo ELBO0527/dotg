@@ -1,7 +1,7 @@
 package elbo.dotg.api17.service.user;
 
 import elbo.dotg.api17.advice.exception.user.UserNotFoundException;
-import elbo.dotg.api17.advice.exception.user.UsernameAlreadyExistsException;
+import elbo.dotg.api17.advice.exception.user.UsernameDuplicationException;
 import elbo.dotg.api17.domain.user.Role;
 import elbo.dotg.api17.domain.user.User;
 import elbo.dotg.api17.dto.request.user.UpdateRequest;
@@ -26,7 +26,7 @@ public class UserService {
     }
 
     public UserResponse findUserById(long id){
-        User user = userRepository.findById(id).orElseThrow();
+        User user = userRepository.findById(id).orElseThrow(UsernameDuplicationException::new);
         return UserResponse.builder()
                 .id(user.getId())
                 .username(user.getUsername())
@@ -44,7 +44,7 @@ public class UserService {
                 .role(Role.ROLE_USER)
                 .build();
 
-        checkIfUsernameExists(user.getUsername());
+        checkUsernameDuplication(user.getUsername());
 
         userRepository.save(user);
     }
@@ -53,7 +53,7 @@ public class UserService {
     public void updateUser(long id, UpdateRequest updateRequest){
         User user = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
 
-        checkIfUsernameExists(updateRequest.getUsername());
+        checkUsernameDuplication(updateRequest.getUsername());
 
         user.setUserInfo(updateRequest.getUsername(), updateRequest.getName());
     }
@@ -63,9 +63,9 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public void checkIfUsernameExists(String username) {
+    public void checkUsernameDuplication(String username) {
         if (userRepository.findByUsername(username).isPresent()) {
-            throw new UsernameAlreadyExistsException(username + "은 이미 등록되어있습니다.");
+            throw new UsernameDuplicationException();
         }
     }
 }

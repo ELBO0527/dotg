@@ -1,6 +1,6 @@
 package elbo.dotg.api17.service;
 
-import elbo.dotg.api17.advice.exception.user.UsernameAlreadyExistsException;
+import elbo.dotg.api17.advice.exception.user.UsernameDuplicationException;
 import elbo.dotg.api17.domain.user.Role;
 import elbo.dotg.api17.domain.user.User;
 import elbo.dotg.api17.dto.request.user.SignUpRequest;
@@ -108,7 +108,7 @@ class UserServiceTest {
         when(userRepository.findByUsername("user1")).thenReturn(Optional.of(User.builder().build()));
 
         // when & then
-        assertThrows(UsernameAlreadyExistsException.class, () -> userService.signUp(signUpRequest));
+        assertThrows(UsernameDuplicationException.class, () -> userService.signUp(signUpRequest));
     }
 
     @Test
@@ -151,7 +151,7 @@ class UserServiceTest {
         Mockito.when(userRepository.findByUsername(newUsername)).thenReturn(Optional.of(User.builder().username(newUsername).build()));
 
         // when, then
-        assertThrows(UsernameAlreadyExistsException.class, () -> userService.updateUser(userId, updateRequest));
+        assertThrows(UsernameDuplicationException.class, () -> userService.updateUser(userId, updateRequest));
     }
 
     @Test
@@ -160,7 +160,7 @@ class UserServiceTest {
         String nonExistingUsername = "nonExistingUser";
 
         // when & then
-        assertDoesNotThrow(() -> userService.checkIfUsernameExists(nonExistingUsername));
+        assertDoesNotThrow(() -> userService.checkUsernameDuplication(nonExistingUsername));
     }
 
     @Test
