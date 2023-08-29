@@ -37,6 +37,8 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
 	testImplementation 'org.springframework.security:spring-security-test'
+	implementation 'org.springframework.boot:spring-boot-starter-cache'
+	implementation 'com.github.ben-manes.caffeine:caffeine'
 
 	// ⭐ Spring boot 3.x이상에서 QueryDsl 패키지를 정의하는 방법
 	implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
@@ -59,18 +61,20 @@ tasks.named('asciidoctor') {
 }
 
 // === ⭐ QueryDsl 빌드 옵션 (선택) ===
-def querydslDir = "$buildDir/generated/querydsl"
+//def querydslDir = "$buildDir/generated/querydsl"
+//
+//sourceSets {
+//	main.java.srcDirs += [ querydslDir ]
+//}
 
-sourceSets {
-	main.java.srcDirs += [ querydslDir ]
+//queryDSl 설정 중 duplicated된 함수 제거
+def querydslSrcDir = 'src/main/generated'
+clean {
+	delete file(querydslSrcDir)
 }
 
 tasks.withType(JavaCompile) {
-	options.annotationProcessorGeneratedSourcesDirectory = file(querydslDir)
-}
-
-clean.doLast {
-	file(querydslDir).deleteDir()
+	options.generatedSourceOutputDirectory = file(querydslSrcDir)
 }
 
 //rest docs
