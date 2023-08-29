@@ -1,13 +1,13 @@
 package elbo.dotg.api17.service;
 
-import elbo.dotg.api17.advice.exception.UsernameAlreadyExistsException;
-import elbo.dotg.api17.domain.User.Role;
-import elbo.dotg.api17.domain.User.User;
+import elbo.dotg.api17.advice.exception.user.UsernameDuplicationException;
+import elbo.dotg.api17.domain.user.Role;
+import elbo.dotg.api17.domain.user.User;
 import elbo.dotg.api17.dto.request.user.SignUpRequest;
 import elbo.dotg.api17.dto.request.user.UpdateRequest;
 import elbo.dotg.api17.dto.response.user.UserResponse;
-import elbo.dotg.api17.repository.User.UserRepository;
-import elbo.dotg.api17.service.User.UserService;
+import elbo.dotg.api17.repository.user.UserRepository;
+import elbo.dotg.api17.service.user.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -108,7 +108,7 @@ class UserServiceTest {
         when(userRepository.findByUsername("user1")).thenReturn(Optional.of(User.builder().build()));
 
         // when & then
-        assertThrows(UsernameAlreadyExistsException.class, () -> userService.signUp(signUpRequest));
+        assertThrows(UsernameDuplicationException.class, () -> userService.signUp(signUpRequest));
     }
 
     @Test
@@ -151,7 +151,7 @@ class UserServiceTest {
         Mockito.when(userRepository.findByUsername(newUsername)).thenReturn(Optional.of(User.builder().username(newUsername).build()));
 
         // when, then
-        assertThrows(UsernameAlreadyExistsException.class, () -> userService.updateUser(userId, updateRequest));
+        assertThrows(UsernameDuplicationException.class, () -> userService.updateUser(userId, updateRequest));
     }
 
     @Test
@@ -160,7 +160,7 @@ class UserServiceTest {
         String nonExistingUsername = "nonExistingUser";
 
         // when & then
-        assertDoesNotThrow(() -> userService.checkIfUsernameExists(nonExistingUsername));
+        assertDoesNotThrow(() -> userService.checkUsernameDuplication(nonExistingUsername));
     }
 
     @Test
