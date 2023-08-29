@@ -7,10 +7,12 @@ import elbo.dotg.api17.dto.request.category.SaveCategoryRequest;
 import elbo.dotg.api17.dto.response.category.CategoryResponse;
 import elbo.dotg.api17.repository.category.CategoryRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 /**
@@ -24,16 +26,17 @@ public class CategoryService {
 
     private final CategoryRepository categoryRepository;
 
+    @Cacheable(cacheNames = "categoryCache")
     public List<CategoryResponse> findAllCategories(){
         return categoryRepository.findAllInnerFetchJoin().stream().map(CategoryResponse::from).collect(Collectors.toList());
     }
 
-    public CategoryResponse findByCategoryId(long categoryId){
+    public CategoryResponse findByCategoryId(final long categoryId){
         return CategoryResponse.from(categoryRepository.findById(categoryId).orElseThrow(CategoryNotFoundException::new));
     }
 
     @Transactional
-    public Long saveCategory(SaveCategoryRequest saveCategoryRequest){
+    public Long saveCategory(final SaveCategoryRequest saveCategoryRequest){
 
         Category category = Category.of(saveCategoryRequest.name(), CategoryType.BOARD,
                 saveCategoryRequest.parentId() == null ? null : categoryRepository.findById(saveCategoryRequest.parentId()).orElseThrow());
@@ -42,14 +45,14 @@ public class CategoryService {
     }
 
     @Transactional
-    public CategoryResponse updateCategory(long categoryId, SaveCategoryRequest saveCategoryRequest){
+    public CategoryResponse updateCategory(final long categoryId, final SaveCategoryRequest saveCategoryRequest){
         Category category = categoryRepository.findById(categoryId).orElseThrow();
         category.setCategory(saveCategoryRequest.name(), CategoryType.BOARD);
         return CategoryResponse.from(category);
     }
 
     @Transactional
-    public long deleteCategory(long id){
+    public long deleteCategory(final long id){
         categoryRepository.deleteById(id);
         return id;
     }

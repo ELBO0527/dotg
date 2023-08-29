@@ -37,6 +37,8 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
 	testImplementation 'org.springframework.security:spring-security-test'
+	implementation 'org.springframework.boot:spring-boot-starter-cache'
+	implementation 'com.github.ben-manes.caffeine:caffeine'
 
 	// ⭐ Spring boot 3.x이상에서 QueryDsl 패키지를 정의하는 방법
 	implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
