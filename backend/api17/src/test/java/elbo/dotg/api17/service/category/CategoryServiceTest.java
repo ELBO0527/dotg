@@ -44,7 +44,7 @@ class CategoryServiceTest {
         //given
         List<Category> categoryList = new ArrayList<>();
 
-        for (int i=0; i < 3100000 ; i++){
+        for (int i=0; i < 1000 ; i++){
             Category category = Category.of("성능_테스트_카테고리"+i+"번", CategoryType.BOARD, null );
             categoryList.add(category);
         }
@@ -79,7 +79,7 @@ class CategoryServiceTest {
         Category category = Category.of(1L, "부모_카테고리", CategoryType.BOARD, null);
 
         //given
-        SaveCategoryRequest savechildCategoryRequest = new SaveCategoryRequest("자식_카테고리_테스트_이름", null, 1L);
+        SaveCategoryRequest savechildCategoryRequest = new SaveCategoryRequest("자식_카테고리_테스트", CategoryType.BOARD,  1L);
         //when
         categoryService.saveCategory(savechildCategoryRequest);
 

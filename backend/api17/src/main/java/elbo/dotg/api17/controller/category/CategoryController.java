@@ -20,9 +20,8 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @GetMapping
-    @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<List<CategoryResponse>> findAllCategories(){
-        return ResponseEntity.ok(categoryService.findAllCategories());
+        return new ResponseEntity<>(categoryService.findAllCategories(), HttpStatus.OK);
     }
 
     @PostMapping

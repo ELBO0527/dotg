@@ -7,6 +7,9 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.cache.annotation.Cacheable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,21 +34,8 @@ public class Category {
     @JoinColumn (name ="parent_id")
     private Category parent;
 
-//    @OneToMany(mappedBy = "category")
-//    private List<Board> boards = new ArrayList<>();
-
     @OneToMany (mappedBy = "parent")
     private List<Category> children = new ArrayList<>();
-
-//    @Builder
-//    public Category(Long id, String name, CategoryType categoryType, Category parent, List<Board> boards, List<Category> children) {
-//        this.id = id;
-//        this.name = name;
-//        this.categoryType = categoryType;
-//        this.parent = parent;
-//        this.boards = boards;
-//        this.children = children;
-//    }
 
     private Category(String name, CategoryType categoryType, Category parent){
         this.name = name;
