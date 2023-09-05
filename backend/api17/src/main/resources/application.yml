@@ -2,6 +2,11 @@ spring:
   profiles:
     active: dev
 
+jwt:
+  secret-key: ^YjwtAQSecretKey123!@$(*&^YveryYYYDDDZSecret84356@#@^#imp!!@1512why$%^$*%(^^%&So35!@@@%!@#$Long
+
+server:
+  port: 29929
 
 # 로그 레벨 설정
 logging:

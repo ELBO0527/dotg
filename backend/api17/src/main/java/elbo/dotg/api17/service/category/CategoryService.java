@@ -17,7 +17,9 @@ import java.util.stream.Collectors;
 
 /**
  * 카테고리를 무한으로 즐겨보자
+ *
  * @AUTHOR 나
+ * @Exception CategoryNotFoundException
  */
 @Service
 @RequiredArgsConstructor
@@ -37,9 +39,9 @@ public class CategoryService {
 
     @Transactional
     public Long saveCategory(final SaveCategoryRequest saveCategoryRequest){
-
         Category category = Category.of(saveCategoryRequest.name(), CategoryType.BOARD,
-                saveCategoryRequest.parentId() == null ? null : categoryRepository.findById(saveCategoryRequest.parentId()).orElseThrow());
+                saveCategoryRequest.parentId() == null ? null :
+                categoryRepository.findById(saveCategoryRequest.parentId()).orElseThrow(()->new RuntimeException("못 찾겠당")));
         categoryRepository.save(category);
         return category.getId();
     }
@@ -56,6 +58,7 @@ public class CategoryService {
         categoryRepository.deleteById(id);
         return id;
     }
+
     /**
      * 람다식 써보려고 만든 함수. 사용안함
      * @param saveCategoryRequest
@@ -66,10 +69,6 @@ public class CategoryService {
         Category category2 = Category.of(null, saveCategoryRequest.name(),saveCategoryRequest.categoryType(), null);
         return categoryRepository.findByName(saveCategoryRequest.name())
                 .map(Category::getId)
-                .orElseGet(()->categoryRepository.save(category2).getId());
-
-        //Category category = SaveCategoryRequest.covertToEntity(saveCategoryRequest);
-        //categoryRepository.save(category);
-        //return category.getId();
+                .orElseGet(() -> categoryRepository.save(category2).getId());
     }
 }
