@@ -27,6 +27,11 @@ public class UserController {
         return ResponseEntity.ok(userService.findUserById(id));
     }
 
+    @GetMapping(value = "/1/{id}")
+    private ResponseEntity<UserResponse> findUserByIdz(@PathVariable final long id, final SignUpRequest signUpRequest) {
+        return ResponseEntity.ok(userService.findUser(id,signUpRequest));
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     private ResponseEntity<String> addUser(@RequestBody SignUpRequest signUpRequest) {

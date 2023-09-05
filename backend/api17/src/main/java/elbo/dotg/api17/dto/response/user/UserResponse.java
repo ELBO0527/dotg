@@ -24,4 +24,12 @@ public class UserResponse {
         this.name = user.getName();
         this.role= user.getRole();
     }
+
+    public static UserResponse from(final User user){
+        return new UserResponse(user.getId(),
+                user.getUsername(),
+                user.getPasswd(),
+                user.getName(),
+                user.getRole());
+    }
 }

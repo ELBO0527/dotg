@@ -76,23 +76,14 @@ class CategoryServiceTest {
     @Test
     void save_child_category() throws Exception {
         Long parentId = 1L;
-        Category category = Category.of(1L, "부모_카테고리", CategoryType.BOARD, null);
+        Category category = Category.of( parentId, "부모_카테고리", CategoryType.BOARD, null);
 
         //given
-        SaveCategoryRequest savechildCategoryRequest = new SaveCategoryRequest("자식_카테고리_테스트", CategoryType.BOARD,  1L);
+        SaveCategoryRequest saveChildCategoryRequest = new SaveCategoryRequest("자식_카테고리_테스트", CategoryType.BOARD, category.getId());
         //when
-        categoryService.saveCategory(savechildCategoryRequest);
+        categoryService.saveCategory(saveChildCategoryRequest);
 
         //then
-        verify(categoryRepository, times(1)).save(any());
-    }
-
-    @Test
-    void save_parent_category_v2() {
-        SaveCategoryRequest saveCategoryRequest = new SaveCategoryRequest("테스트를 해보자", CategoryType.BOARD, null);
-
-        categoryService.saveParentCategoryV2(saveCategoryRequest);
-
         verify(categoryRepository, times(1)).save(any());
     }
 

@@ -15,6 +15,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.StopWatch;
 
 import java.util.Arrays;
@@ -31,6 +32,8 @@ class UserServiceTest {
 
     @InjectMocks
     private UserService userService;
+    @Mock
+    private PasswordEncoder passwordEncoder;
 
     @BeforeEach
     void setup() {
