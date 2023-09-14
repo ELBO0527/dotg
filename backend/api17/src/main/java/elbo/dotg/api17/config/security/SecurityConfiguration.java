@@ -1,34 +1,30 @@
 package elbo.dotg.api17.config.security;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 
-import java.io.IOException;
-import java.util.List;
-
-@RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
 
     private final JwtTokenProvider jwtTokenProvider;
+    private final HandlerExceptionResolver resolver;
     private final String[] accessUrls = {"/error", "/api/v1/signin", "/api/v1/signup"};
+
+    public SecurityConfiguration(JwtTokenProvider jwtTokenProvider, @Qualifier("handlerExceptionResolver") HandlerExceptionResolver resolver) {
+        this.jwtTokenProvider = jwtTokenProvider;
+        this.resolver = resolver;
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -51,23 +47,14 @@ public class SecurityConfiguration {
                                 .anyRequest().authenticated()
                 )
                 .exceptionHandling(exceptionHandling -> exceptionHandling
-                                .accessDeniedHandler(new AccessDeniedHandler() {
-                                    @Override
-                                    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
-                                        response.sendError(HttpServletResponse.SC_FORBIDDEN);
-
-                                        response.getWriter();
-                                    }
+                                .accessDeniedHandler((request, response, accessDeniedException) -> {
+                                    resolver.resolveException(request, response, null, accessDeniedException);
                                 })
-                                .authenticationEntryPoint(new AuthenticationEntryPoint() {
-                                    @Override
-                                    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-                                        response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-                                        response.getWriter();
-                                    }
+                                .authenticationEntryPoint((request, response, authException) -> {
+                                    resolver.resolveException(request, response, null, authException);
                                 })
                 )
-                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);;
+                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

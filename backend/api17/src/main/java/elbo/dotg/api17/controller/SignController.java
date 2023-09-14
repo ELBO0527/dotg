@@ -5,6 +5,7 @@ import elbo.dotg.api17.dto.request.user.SigninRequest;
 import elbo.dotg.api17.dto.response.common.ApiResponse;
 import elbo.dotg.api17.service.user.SignService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import static elbo.dotg.api17.dto.response.common.ApiResponse.success;
@@ -18,7 +19,7 @@ public class SignController {
     private final SignService signService;
 
     @PostMapping(value = "/signin")
-    public ApiResponse<JwtToken> signin(@RequestBody SigninRequest signinRequest){
+    public ApiResponse<JwtToken> signin(@RequestBody final SigninRequest signinRequest){
         return success(signService.signin(signinRequest));
     }
 }

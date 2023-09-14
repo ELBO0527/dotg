@@ -10,9 +10,9 @@ import java.util.stream.Collectors;
 public record CategoryResponse(String name,
                                CategoryType categoryType,
                                List<CategoryResponse> children) {
-    public static CategoryResponse from(final Category category){
+    public static CategoryResponse from(final Category category) {
         return new CategoryResponse(category.getName(),
-                                    category.getCategoryType(),
-                                    category.getChildren().stream().map(CategoryResponse::from).collect(Collectors.toList()));
+                category.getCategoryType(),
+                category.getChildren().stream().map(CategoryResponse::from).collect(Collectors.toList()));
     }
 }

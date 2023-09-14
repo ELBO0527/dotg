@@ -18,7 +18,7 @@ public class PrincipalUserDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {//추후 유저당 롤이 늘어나면 List로 변경
         Collection<GrantedAuthority> collectors = new ArrayList<>();
-        collectors.add(()-> String.valueOf(user.getRole()));
+        collectors.add(() -> String.valueOf(user.getRole()));
         return collectors;
     }
 
@@ -26,6 +26,7 @@ public class PrincipalUserDetails implements UserDetails {
     public String getUsername() {
         return user.getUsername();
     }
+
     @Override
     public String getPassword() {
         return user.getPasswd();
