@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface CategoryCustomRepository {
     List<Category> findAllInnerFetchJoin();
+
     List<Category> findAllInnerFetchJoinWithDistinct();
 }
