@@ -39,6 +39,6 @@ public class ExceptionAdvice {
 
     @ExceptionHandler(AuthenticationException.class)
     protected ApiResponse<String> authenticationException(HttpServletRequest request, AuthenticationException e) {
-        return error(e.getMessage());
+        return error("로그인 해야긋제");
     }
 }
