@@ -22,6 +22,8 @@ public class QBoard extends EntityPathBase<Board> {
 
     public static final QBoard board = new QBoard("board");
 
+    public final elbo.dotg.api17.domain.common.QBaseTimeEntity _super = new elbo.dotg.api17.domain.common.QBaseTimeEntity(this);
+
     public final ListPath<String, StringPath> attachments = this.<String, StringPath>createList("attachments", String.class, StringPath.class, PathInits.DIRECT2);
 
     public final elbo.dotg.api17.domain.category.QCategory category;
@@ -30,7 +32,19 @@ public class QBoard extends EntityPathBase<Board> {
 
     public final StringPath content = createString("content");
 
+    //inherited
+    public final StringPath createdBy = _super.createdBy;
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> createdDate = _super.createdDate;
+
     public final NumberPath<Long> id = createNumber("id", Long.class);
+
+    //inherited
+    public final StringPath modifiedBy = _super.modifiedBy;
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> modifiedDate = _super.modifiedDate;
 
     public final StringPath title = createString("title");
 
