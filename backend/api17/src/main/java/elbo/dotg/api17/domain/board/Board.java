@@ -2,6 +2,7 @@ package elbo.dotg.api17.domain.board;
 
 import elbo.dotg.api17.domain.category.Category;
 import elbo.dotg.api17.domain.comment.Comment;
+import elbo.dotg.api17.domain.common.BaseTimeEntity;
 import elbo.dotg.api17.domain.user.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -14,9 +15,9 @@ import java.util.List;
 
 @Entity
 @Getter
-@Table(name="board")
+@Table(name = "board")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Board {
+public class Board extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

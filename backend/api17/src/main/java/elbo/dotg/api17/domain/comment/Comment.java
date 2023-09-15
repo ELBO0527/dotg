@@ -1,6 +1,7 @@
 package elbo.dotg.api17.domain.comment;
 
 import elbo.dotg.api17.domain.board.Board;
+import elbo.dotg.api17.domain.common.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -9,9 +10,9 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
-@Table(name="comment")
+@Table(name = "comment", indexes = @Index(name = "i_comment_content", columnList = "content"))
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Comment {
+public class Comment extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -1,5 +1,6 @@
 package elbo.dotg.api17.domain.common;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
@@ -14,10 +15,12 @@ import java.time.LocalDateTime;
 @Getter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class BaseTimeEntity{
+public abstract class BaseTimeEntity {
     @CreatedDate
+    @Column(updatable = false)
     private LocalDateTime createdDate;
     @CreatedBy
+    @Column(updatable = false)
     private String createdBy;
     @LastModifiedDate
     private LocalDateTime modifiedDate;

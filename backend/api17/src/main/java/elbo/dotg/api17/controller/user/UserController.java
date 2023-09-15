@@ -34,7 +34,7 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    private ResponseEntity<String> addUser(@RequestBody SignUpRequest signUpRequest) {
+    private ResponseEntity<String> addUser(@RequestBody final SignUpRequest signUpRequest) {
         userService.signUp(signUpRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body("회원가입이 완료되었습니다.");
     }
@@ -47,7 +47,7 @@ public class UserController {
 
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    private void deleteUserById(@PathVariable long id) {
+    private void deleteUserById(@PathVariable final long id) {
         userService.deleteUser(id);
     }
 }
