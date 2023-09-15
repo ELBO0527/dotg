@@ -58,13 +58,13 @@ public class UserService {
 
         checkUsernameDuplication(updateRequest.getUsername());
 
-        user.setUserInfo(updateRequest.getUsername(), updateRequest.getName());
+        user.updateUserNameAndName(updateRequest.getUsername(), updateRequest.getName());
     }
 
     @Transactional
     public void updateUserPassword(long id, final String passwd) {
         User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("z"));
-        user.setPasswd(passwd);
+        user.updatePassword(passwd);
     }
 
     @Transactional

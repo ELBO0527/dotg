@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.util.StringUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -50,12 +51,12 @@ public class User extends BaseTimeEntity {
         this.boards = boards;
     }
 
-    public void setUserInfo(String username, String name) {
+    public void updateUserNameAndName(String username, String name) {
         this.username = username;
         this.name = name;
     }
 
-    public void setPasswd(String passwd) {
+    public void updatePassword(String passwd) {
         this.passwd = passwd;
     }
 }
