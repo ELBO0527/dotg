@@ -1,6 +1,6 @@
 package elbo.dotg.api17.service.security;
 
-import elbo.dotg.api17.domain.user.User;
+import elbo.dotg.api17.advice.exception.sign.CustomAuthenticationException;
 import elbo.dotg.api17.dto.security.PrincipalUserDetails;
 import elbo.dotg.api17.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +19,9 @@ public class PrincipalUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        User principal = userRepository.findByUsername(userName)
-                .orElseThrow(()-> new RuntimeException("유저 이름 없음"));
-        return new PrincipalUserDetails(principal);
+        return new PrincipalUserDetails(
+                userRepository.findByUsername(userName)
+                        .orElseThrow(CustomAuthenticationException::new)
+        );
     }
 }
