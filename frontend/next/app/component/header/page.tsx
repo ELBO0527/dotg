@@ -1,8 +1,7 @@
 
-import { MouseEventHandler, useState } from 'react'
+import { useState } from 'react'
 import { Dialog } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-import { useRouter } from 'next/navigation'
 
 const navigation = [
   { name: '상품', href: '#' },
@@ -11,13 +10,8 @@ const navigation = [
   { name: '회사소개', href: '#' },
 ]
 
-export default function Header(href: string) {
-  const router = useRouter();
+export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
-    e.preventDefault()
-    router.push(href)
-  }
 
   return (
 
@@ -97,7 +91,6 @@ export default function Header(href: string) {
               <div className="py-6">
                 <a
                   href="/login"
-                  onClick={handleClick}
                   className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
                   Log in

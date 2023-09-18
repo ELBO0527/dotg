@@ -2,10 +2,9 @@
 
 import Header from "@/app/component/header/page"
 import axios, { AxiosResponse } from "axios"
-import { stringify } from "querystring"
-import { FormEvent, useEffect, useState } from "react"
+import { FormEvent, useState } from "react"
 
-type User = {
+interface User {
   username: string,
   passwd: string
 }
@@ -14,11 +13,12 @@ export default function SigninPage() {
   const [signinRequest, setSigninRequest] = useState<User>({ username: '', passwd: '' });
   
   async function handleSubmit(event: FormEvent<HTMLFormElement>)  {
+    event.preventDefault();
+
     try {
         const result: AxiosResponse<any, any> = await axios.post("/api/v1/signin", signinRequest );
-        console.log(result);
-      } catch (error) {
-        console.log(error)
+      } catch (error: any) {
+        alert(error.response.data.message) //TODO:form validation으로 바꾸기
       }
   }
 
@@ -28,19 +28,10 @@ export default function SigninPage() {
       ...prevState,
       [name]: value
     }));
-    console.log(signinRequest)
   }
 
     return (
       <>
-        {/*
-          This example requires updating your template:
-  
-          ```
-          <html class="h-full bg-white">
-          <body class="h-full">
-          ```
-        */}
         <div className="flex h-screen flex-1 flex-col justify-center px-6 lg:px-8 content-center">
           <Header />
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
