@@ -53,12 +53,14 @@ public class UserService {
     }
 
     @Transactional
-    public void updateUser(final long id, final UpdateRequest updateRequest) {
+    public UserResponse updateUser(final long id, final UpdateRequest updateRequest) {
         User user = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
 
         checkUsernameDuplication(updateRequest.getUsername());
 
         user.updateUserNameAndName(updateRequest.getUsername(), updateRequest.getName());
+
+        return UserResponse.from(user);
     }
 
     @Transactional
@@ -68,8 +70,9 @@ public class UserService {
     }
 
     @Transactional
-    public void deleteUser(final long id) {
+    public Long deleteUser(final long id) {
         userRepository.deleteById(id);
+        return id;
     }
 
     public void checkUsernameDuplication(final String username) {

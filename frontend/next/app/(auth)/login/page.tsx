@@ -1,6 +1,36 @@
-import { Axios } from "axios"
+'use client'
+
+import Header from "@/app/component/header/page"
+import axios, { AxiosResponse } from "axios"
+import { stringify } from "querystring"
+import { FormEvent, useEffect, useState } from "react"
+
+type User = {
+  username: string,
+  passwd: string
+}
 
 export default function SigninPage() {
+  const [signinRequest, setSigninRequest] = useState<User>({ username: '', passwd: '' });
+  
+  async function handleSubmit(event: FormEvent<HTMLFormElement>)  {
+    try {
+        const result: AxiosResponse<any, any> = await axios.post("/api/v1/signin", signinRequest );
+        console.log(result);
+      } catch (error) {
+        console.log(error)
+      }
+  }
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setSigninRequest(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+    console.log(signinRequest)
+  }
+
     return (
       <>
         {/*
@@ -11,7 +41,8 @@ export default function SigninPage() {
           <body class="h-full">
           ```
         */}
-        <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+        <div className="flex h-screen flex-1 flex-col justify-center px-6 lg:px-8 content-center">
+          <Header />
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <img
               className="mx-auto h-10 w-auto"
@@ -24,18 +55,20 @@ export default function SigninPage() {
           </div>
   
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form className="space-y-6" action="#" method="POST">
+            <form className="space-y-6" onSubmit={handleSubmit} method="POST">
               <div>
-                <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-                  이메일
+                <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900">
+                  아이디
                 </label>
                 <div className="mt-2">
                   <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
+                    id="username"
+                    name="username"
+                    //type="email"
+                    autoComplete="username"
                     required
+                    value={signinRequest.username}
+                    onChange={handleInputChange}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
@@ -54,10 +87,12 @@ export default function SigninPage() {
                 </div>
                 <div className="mt-2">
                   <input
-                    id="password"
-                    name="password"
+                    id="passwd"
+                    name="passwd"
                     type="password"
                     autoComplete="current-password"
+                    value={signinRequest.passwd}
+                    onChange={handleInputChange}
                     required
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
