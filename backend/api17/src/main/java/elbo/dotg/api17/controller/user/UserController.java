@@ -41,13 +41,14 @@ public class UserController {
 
     @PutMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    private void updateUserInfo(@PathVariable final long id, @RequestBody final UpdateRequest updateRequest) {
+    private ResponseEntity<UserResponse> updateUserInfo(@PathVariable final long id, @RequestBody final UpdateRequest updateRequest) {
         userService.updateUser(id, updateRequest);
+        return ResponseEntity.ok(userService.updateUser(id, updateRequest));
     }
 
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    private void deleteUserById(@PathVariable final long id) {
-        userService.deleteUser(id);
+    private ResponseEntity<Long> deleteUserById(@PathVariable final long id) {
+        return ResponseEntity.ok(userService.deleteUser(id));
     }
 }
