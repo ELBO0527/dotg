@@ -28,10 +28,10 @@ public class SignService {
     @Transactional
     public JwtToken signin(final SigninRequest signinRequest) {
         UsernamePasswordAuthenticationToken authenticationToken = UsernamePasswordAuthenticationToken.unauthenticated(signinRequest.username(), signinRequest.passwd());
-        try{
+        try {
             Authentication authenticate = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
             return jwtTokenProvider.createToken(authenticate);
-        }catch(AuthenticationException e){
+        } catch (AuthenticationException e) {
             throw AUTHENTICATION_EXCEPTION;
         }
     }

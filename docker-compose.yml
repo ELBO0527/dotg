@@ -1,0 +1,13 @@
+version: "3" # 버전 지정
+
+services: # 컨테이너 설정
+  db:   
+    images: mysql:5.7 # 컨테이너에서 사용하는 base image 지정
+    restart: always # 컨테이너 다운 시 재시작하라는 명령어
+    volumes: # -v 옵션과 동일
+      - ./mysqldata:/var/lib/mysql
+    environment: # 컨테이너 안의 환경변수 설정
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=mydb
+    ports: # -p 옵션과 동일
+      - "3306:3306"
