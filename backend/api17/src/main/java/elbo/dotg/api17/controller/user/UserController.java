@@ -2,6 +2,7 @@ package elbo.dotg.api17.controller.user;
 
 import elbo.dotg.api17.dto.request.user.SignUpRequest;
 import elbo.dotg.api17.dto.request.user.UpdateRequest;
+import elbo.dotg.api17.dto.response.common.ApiResponse;
 import elbo.dotg.api17.dto.response.user.UserResponse;
 import elbo.dotg.api17.service.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static elbo.dotg.api17.dto.response.common.ApiResponse.success;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "/api/v1/users")
@@ -18,8 +21,8 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    private ResponseEntity<List<UserResponse>> findAllUsers() {
-        return ResponseEntity.ok(userService.findAllUsers());
+    private ApiResponse<List<UserResponse>> findAllUsers() {
+        return success(userService.findAllUsers());
     }
 
     @GetMapping(value = "/{id}")
