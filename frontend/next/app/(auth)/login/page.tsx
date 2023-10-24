@@ -17,6 +17,8 @@ export default function SigninPage() {
 
     try {
         const result: AxiosResponse<any, any> = await axios.post("/api/v1/signin", signinRequest );
+        console.log(result)
+        alert("로그인 성공")
       } catch (error: any) {
         alert(error.response.data.message) //TODO:form validation으로 바꾸기
       }

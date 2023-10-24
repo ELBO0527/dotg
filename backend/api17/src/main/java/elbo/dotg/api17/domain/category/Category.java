@@ -23,6 +23,7 @@ public class Category extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "category_id")
     private Long id;
 
     @Column

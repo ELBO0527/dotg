@@ -12,6 +12,7 @@ spring:
     hibernate:
       default_batch_fetch_size: 10
       ddl-auto: update
+      #ddl-auto: create-drop
       type:
         descriptor:
           sql: trace

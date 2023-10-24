@@ -1,13 +1,52 @@
 version: "3" # 버전 지정
 
 services: # 컨테이너 설정
-  db:   
-    images: mysql:5.7 # 컨테이너에서 사용하는 base image 지정
-    restart: always # 컨테이너 다운 시 재시작하라는 명령어
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+
+  db:
+    container_name: mariadb-prob
+    image: mariadb:latest # 컨테이너에서 사용하는 base image 지정
+    # restart: always # 컨테이너 다운 시 재시작하라는 명령어
+    env_file:
+      - .env
     volumes: # -v 옵션과 동일
-      - ./mysqldata:/var/lib/mysql
+      - ./db/conf.d:/etc/mysql/conf.d
+      - ./db/data:/var/lib/mysql
+      - ./db/initdb.d:/docker-entrypoint-initdb.d
     environment: # 컨테이너 안의 환경변수 설정
-      - MYSQL_ROOT_PASSWORD=password
-      - MYSQL_DATABASE=mydb
+      - TZ="Asia/Seoul"
     ports: # -p 옵션과 동일
-      - "3306:3306"
+      - "3307:3306"
+    networks:
+      - dotg-pjt-net   
+
+  api:
+    image: dotg-backend:1.0
+    build: backend/api17
+    # restart: always
+    ports:
+      - "29921:29929"
+    depends_on:
+      - db
+    container_name: dotg-backend
+    environment: 
+      - USERNAME=root
+      - PASSWORD=root
+    networks: 
+      - dotg-pjt-net
+
+  next:
+    image: dotg-frontend:1.0
+    build: frontend/next
+    ports:
+     - "23000:3000"
+    container_name: dotg-frontend
+    networks:
+      - dotg-pjt-net
+
+networks:
+  dotg-pjt-net:

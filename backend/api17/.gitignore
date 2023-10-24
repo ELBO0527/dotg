@@ -39,4 +39,6 @@ out/
 .vscode/
 
 ### properties ###
-dev-secure.properties
+dev-*.properties
+
+.env
