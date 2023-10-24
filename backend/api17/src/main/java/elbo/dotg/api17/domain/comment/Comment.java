@@ -16,6 +16,7 @@ public class Comment extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "comment_id")
     private Long id;
 
     @Column
