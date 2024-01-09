@@ -1,6 +1,6 @@
 package elbo.dotg.api17.service.security;
 
-import elbo.dotg.api17.advice.exception.sign.CustomAuthenticationException;
+import elbo.dotg.api17.advice.exception.sign.InvalidCredentialsException;
 import elbo.dotg.api17.dto.security.PrincipalUserDetails;
 import elbo.dotg.api17.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,7 @@ public class PrincipalUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         return new PrincipalUserDetails(
                 userRepository.findByUsername(userName)
-                        .orElseThrow(CustomAuthenticationException::new)
+                        .orElseThrow(InvalidCredentialsException::new)
         );
     }
 }
