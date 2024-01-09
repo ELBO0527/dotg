@@ -5,8 +5,8 @@ spring:
   datasource:
     url: ${url}
     driver-class-name: org.mariadb.jdbc.Driver
-    username: ${username}
-    password: ${password}
+    username: dotg
+    password: dotg0527
   jpa:
     open-in-view: true
     hibernate:
@@ -21,18 +21,19 @@ spring:
         format_sql: true
         show-sql: true
 
-# 로그 레벨 설정
-#logging:
-#  level:
-#    org.springframework.web.client: DEBUG
-#    # hibernate 가 남기는 모든 로그가 debug모드로 설정
-#    # jpa hibernate가 생성하는 sql이 로거를 통해서 찍히도록 하는 설정
-#    org.hibernate.SQL: DEBUG
-#    org.hibernate.type: trace # 실제 들어가는 파라미터값 찍어주는 설정
-logging:
-  level:
-    org:
-      hibernate:
-        type:
-          descriptor:
-            sql: trace
+      # 로그 레벨 설정
+      #logging:
+      #  level:
+      #    org.springframework.web.client: DEBUG
+      #    # hibernate 가 남기는 모든 로그가 debug모드로 설정
+      #    # jpa hibernate가 생성하는 sql이 로거를 통해서 찍히도록 하는 설정
+      #    org.hibernate.SQL: DEBUG
+      #    org.hibernate.type: trace # 실제 들어가는 파라미터값 찍어주는 설정
+
+      #logging:
+      #  level:
+      #    org:
+      #      hibernate:
+      #        type:
+      #          descriptor:
+      #            sql: trace

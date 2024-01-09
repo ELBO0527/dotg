@@ -10,6 +10,57 @@ group = 'elbo.dotg'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 
+jacoco {
+	toolVersion = "0.8.11"
+}
+
+jacocoTestReport {
+	reports {
+		html.enabled true
+		csv.enabled true
+		xml.enabled false
+	}
+
+	def Qdomains = []
+
+	for(qPattern in "**/QA" .. "**/QZ"){
+		Qdomains.add(qPattern + "*")
+	}
+
+	afterEvaluate {
+
+		classDirectories.setFrom(files(classDirectories.files.collect {
+			fileTree(dir: it,
+					exclude: [] + Qdomains)
+		}))
+	}
+
+	finalizedBy 'jacocoTestCoverageVerification'
+}
+
+jacocoTestCoverageVerification {
+	violationRules {
+		rule {
+			enabled = true
+			element = 'CLASS'
+			// includes = []
+
+			limit {
+				counter = 'LINE'
+				value = 'COVEREDRATIO'
+				minimum = 0.60
+			}
+
+			excludes = []
+		}
+
+		rule {
+
+		}
+
+	}
+}
+
 configurations {
 	asciidoctorExt
 	compileOnly {
@@ -31,6 +82,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	implementation 'org.flywaydb:flyway-core'
+	implementation 'org.flywaydb:flyway-mysql'
+    testImplementation 'org.projectlombok:lombok:1.18.26'
     compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 	implementation 'com.h2database:h2'
@@ -41,12 +95,15 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
 	implementation 'org.springframework.boot:spring-boot-starter-cache'
 	implementation 'com.github.ben-manes.caffeine:caffeine'
+	implementation 'org.flywaydb:flyway-core'
+	implementation 'org.flywaydb:flyway-mysql'
 
 	implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.1'
 
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
 	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+
 
 	// ⭐ Spring boot 3.x이상에서 QueryDsl 패키지를 정의하는 방법
 	implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
@@ -68,7 +125,7 @@ tasks.named('asciidoctor') {
 	dependsOn test
 }
 
-// === ⭐ QueryDsl 빌드 옵션 (선택) ===
+// === ⭐ QueryDsl 빌드 옵션 (선택) f===
 //def querydslDir = "$buildDir/generated/querydsl"
 //
 //sourceSets {
@@ -91,6 +148,7 @@ ext { // (5)
 }
 
 test { // (6)
+	useJUnitPlatform()
 	outputs.dir snippetsDir
 }
 

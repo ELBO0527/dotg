@@ -21,6 +21,10 @@ import org.springframework.util.StopWatch;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -29,7 +33,6 @@ import static org.mockito.Mockito.*;
 class UserServiceTest {
     @Mock
     private UserRepository userRepository;
-
     @InjectMocks
     private UserService userService;
     @Mock
@@ -92,7 +95,6 @@ class UserServiceTest {
         assertEquals(user.getUsername(), userResponse.getUsername());
         assertEquals(user.getName(), userResponse.getName());
         assertEquals(user.getRole(), userResponse.getRole());
-
     }
 
     @Test
@@ -169,7 +171,21 @@ class UserServiceTest {
     @Test
     void deleteUserTest() {
         userService.deleteUser(1L);
-
         verify(userRepository, times(1)).deleteById(anyLong());
     }
+
+/*
+    @Test
+    void concureTest(int i){
+        ExecutorService executorService = Executors.newFixedThreadPool(2);
+        CountDownLatch latch = new CountDownLatch (2);
+        String s = "";
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println(i);
+            }
+        });
+    }*/
+
 }

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -39,7 +39,7 @@ public class CategoryService {
 
     @Transactional
     public Long saveCategory(final SaveCategoryRequest saveCategoryRequest) {
-        Category category = Category.of(saveCategoryRequest.name(), CategoryType.BOARD,
+        Category category = Category.of(saveCategoryRequest.name(), CategoryType.BOARD_COMMON,
                 saveCategoryRequest.parentId() == null ? null :
                         categoryRepository.findById(saveCategoryRequest.parentId()).orElseThrow(() -> new RuntimeException("못 찾겠당")));
         categoryRepository.save(category);
@@ -49,12 +49,13 @@ public class CategoryService {
     @Transactional
     public CategoryResponse updateCategory(final long categoryId, final SaveCategoryRequest saveCategoryRequest) {
         Category category = categoryRepository.findById(categoryId).orElseThrow();
-        category.setCategory(saveCategoryRequest.name(), CategoryType.BOARD);
+        category.setCategory(saveCategoryRequest.name(), CategoryType.BOARD_COMMON);
         return CategoryResponse.from(category);
     }
 
     @Transactional
     public long deleteCategory(final long id) {
+        categoryRepository.findById(id);
         categoryRepository.deleteById(id);
         return id;
     }

@@ -1,7 +1,11 @@
 package elbo.dotg.api17.domain.category;
 
+import java.util.stream.Stream;
+
 public enum CategoryType {
-    BOARD("NOTICE", "c01");
+    BOARD_COMMON("전체게시판", "c01"),
+    BOARD_NOTICE("공지사항게시판", "c02"),
+    BOARD_COMMUNITY("커뮤니티게시판", "c03");
 
     private final String categoryName;
     private final String categoryCode;
