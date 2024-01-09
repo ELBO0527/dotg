@@ -23,12 +23,13 @@ import static elbo.dotg.api17.dto.response.common.ApiResponse.error;
 public class ExceptionAdvice {
 
     private final MessageSource messageSource;
+    private static final String defaultMessage = "서버 에러입니다.";
 
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     protected ApiResponse<String> defaultRuntimeException(final RuntimeException e) {
         e.printStackTrace();
-        return error("서버 에러입니다.");
+        return error(defaultMessage);
     }
 
     @ExceptionHandler(Exception.class)

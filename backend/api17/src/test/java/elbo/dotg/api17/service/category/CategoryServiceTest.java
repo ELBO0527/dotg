@@ -4,12 +4,8 @@ import elbo.dotg.api17.advice.exception.category.CategoryNotFoundException;
 import elbo.dotg.api17.domain.category.Category;
 import elbo.dotg.api17.domain.category.CategoryType;
 import elbo.dotg.api17.dto.request.category.SaveCategoryRequest;
-import elbo.dotg.api17.dto.request.user.SignUpRequest;
 import elbo.dotg.api17.dto.response.category.CategoryResponse;
-import elbo.dotg.api17.dto.response.user.UserResponse;
 import elbo.dotg.api17.repository.category.CategoryRepository;
-import elbo.dotg.api17.repository.user.UserRepository;
-import elbo.dotg.api17.service.user.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -18,7 +14,6 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.util.StopWatch;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,7 +40,7 @@ class CategoryServiceTest {
         List<Category> categoryList = new ArrayList<>();
 
         for (int i=0; i < 1000 ; i++){
-            Category category = Category.of("성능_테스트_카테고리"+i+"번", CategoryType.BOARD, null );
+            Category category = Category.of("성능_테스트_카테고리"+i+"번", CategoryType.BOARD_COMMON, null );
             categoryList.add(category);
         }
         when(categoryRepository.findAll()).thenReturn(categoryList);
@@ -66,20 +61,24 @@ class CategoryServiceTest {
 
     @Test
     void save_parent_category() {
-        SaveCategoryRequest saveCategoryRequest = new SaveCategoryRequest("테스트를 해보자", CategoryType.BOARD, null);
+        SaveCategoryRequest saveCategoryRequest = new SaveCategoryRequest("테스트를 해보자", CategoryType.BOARD_COMMON, null);
 
         categoryService.saveCategory(saveCategoryRequest);
 
         verify(categoryRepository, times(1)).save(any());
+
+
     }
 
     @Test
     void save_child_category() throws Exception {
+
         Long parentId = 1L;
-        Category category = Category.of( parentId, "부모_카테고리", CategoryType.BOARD, null);
+        Category category = Category.of( parentId, "부모_카테고리", CategoryType.BOARD_COMMON, null);
+        //categoryService.saveCategory(category);
 
         //given
-        SaveCategoryRequest saveChildCategoryRequest = new SaveCategoryRequest("자식_카테고리_테스트", CategoryType.BOARD, category.getId());
+        SaveCategoryRequest saveChildCategoryRequest = new SaveCategoryRequest("자식_카테고리_테스트", CategoryType.BOARD_COMMON, category.getId());
         //when
         categoryService.saveCategory(saveChildCategoryRequest);
 
@@ -90,9 +89,9 @@ class CategoryServiceTest {
     @Test
     void update_category() throws Exception {
         //given
-        SaveCategoryRequest saveCategoryRequest = new SaveCategoryRequest("수정_카테고리", CategoryType.BOARD, null);
+        SaveCategoryRequest saveCategoryRequest = new SaveCategoryRequest("수정_카테고리", CategoryType.BOARD_COMMON, null);
 
-        Category category = Category.of("수정_전_카테고리", CategoryType.BOARD, null);
+        Category category = Category.of("수정_전_카테고리", CategoryType.BOARD_COMMON, null);
         when(categoryRepository.findById(anyLong())).thenReturn(Optional.of(category));
 
         //when
@@ -116,7 +115,7 @@ class CategoryServiceTest {
     void find_category_by_categoryId() throws Exception {
         //given
         long categoryId = 1L;
-        Category parentCategory = Category.of(1L, "부모 카테고리", CategoryType.BOARD, null);
+        Category parentCategory = Category.of(1L, "부모 카테고리", CategoryType.BOARD_COMMON, null);
 
         when(categoryRepository.findById(categoryId)).thenReturn(Optional.of(parentCategory));
         //when
@@ -126,6 +125,9 @@ class CategoryServiceTest {
         assertEquals(parentCategory.getName(), parentCategoryResponse.name());
         assertEquals(parentCategory.getCategoryType(), parentCategoryResponse.categoryType());
         assertEquals(parentCategory.getChildren(), parentCategoryResponse.children());
+
+        System.out.println(parentCategoryResponse);
+        System.out.println(parentCategory.getName());
     }
 
     @Test
@@ -136,5 +138,12 @@ class CategoryServiceTest {
 
         //when & then
         assertThrows(CategoryNotFoundException.class, ()->categoryService.findByCategoryId(categoryId));
+    }
+
+    @Test
+    void delete_ParentCategory() throws Exception {
+        long categoryId = 1L;
+        categoryService.deleteCategory(categoryId);
+        verify(categoryRepository, times(1)).deleteById(categoryId);
     }
 }

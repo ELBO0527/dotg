@@ -13,8 +13,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static elbo.dotg.api17.advice.exception.sign.CustomAuthenticationException.AUTHENTICATION_EXCEPTION;
-
 
 @Slf4j
 @Service
@@ -32,7 +30,7 @@ public class SignService {
             Authentication authenticate = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
             return jwtTokenProvider.createToken(authenticate);
         } catch (AuthenticationException e) {
-            throw AUTHENTICATION_EXCEPTION;
+            throw new CustomAuthenticationException();
         }
     }
 }

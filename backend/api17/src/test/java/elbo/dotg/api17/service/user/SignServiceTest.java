@@ -33,7 +33,7 @@ public class SignServiceTest {
     }
 
        @Test
-       void 로그인을_테스트_해보_자() throws Exception {
+       void 로그인을_테스트_해보자() throws Exception {
             // 가상의 입력 데이터를 생성
             SigninRequest signinRequest = new SigninRequest("testuser", "password");
 

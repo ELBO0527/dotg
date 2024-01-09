@@ -5,10 +5,10 @@ import { Dialog } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 
 const navigation = [
-  { name: '상품', href: '#' },
-  { name: '게시판', href: '#' },
-  { name: '마켓', href: '#' },
-  { name: '회사소개', href: '#' },
+  { name: '상품', href: '/product' },
+  { name: '게시판', href: '/board' },
+  { name: '마켓', href: '/marcket' },
+  { name: '회사소개', href: '/introduce' },
 ]
 
 export default function Header() {

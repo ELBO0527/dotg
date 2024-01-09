@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
 public class JwtTokenProvider {
     @Value("${jwt.secret-key}") String secretKey;
     private final PrincipalUserDetailsService principalUserDetailsService;
-    private final static long accessTokenValidTime = 1000L * 60 * 60 * 6; //6시간
-    private final static long refreshTokenValidTime = 1000L * 60 * 60 * 24 * 14; //14일
+    private static final long ACCESS_TOKEN_VALID_TIME = 1000L * 60 * 60 * 6; //6시간
+    private static final long REFRESH_TOKEN_VALID_TIME = 1000L * 60 * 60 * 24 * 14; //14일
 
     public JwtToken createToken(Authentication authentication){
         String authorities = authentication.getAuthorities()
@@ -31,15 +31,15 @@ public class JwtTokenProvider {
 
         String accessToken = Jwts.builder()
                 .signWith(new SecretKeySpec(secretKey.getBytes(), SignatureAlgorithm.HS512.getJcaName()))
-                .setSubject(authentication.getName())
+                .setSubject(authentication.getName()) //subject가 있어야 userRepo.findByUsername메서드를 통해 로그인 로직 검증됨
                 .claim("auth", authorities)
-                .setExpiration(new Date(System.currentTimeMillis() + accessTokenValidTime))
+                .setExpiration(new Date(System.currentTimeMillis() + ACCESS_TOKEN_VALID_TIME))
                 .setIssuer("LBW")
                 .setIssuedAt(Timestamp.valueOf(LocalDateTime.now()))
                 .compact();
 
         String refreshToken = Jwts.builder()
-                .setExpiration(new Date(System.currentTimeMillis() + refreshTokenValidTime))
+                .setExpiration(new Date(System.currentTimeMillis() + REFRESH_TOKEN_VALID_TIME))
                 .signWith(new SecretKeySpec(secretKey.getBytes(), SignatureAlgorithm.HS512.getJcaName()))
                 .compact();
 

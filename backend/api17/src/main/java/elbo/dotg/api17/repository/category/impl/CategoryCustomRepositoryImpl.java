@@ -25,9 +25,6 @@ public class CategoryCustomRepositoryImpl implements CategoryCustomRepository {
                 .distinct()
                 .leftJoin(parent.children, child)
                 .fetchJoin()
-                .where(
-                        parent.parent.isNull()
-                )
                 .orderBy(parent.id.asc(), child.id.asc())
                 .fetch();
     }
