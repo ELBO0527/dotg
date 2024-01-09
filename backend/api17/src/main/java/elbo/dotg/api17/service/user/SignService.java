@@ -1,6 +1,6 @@
 package elbo.dotg.api17.service.user;
 
-import elbo.dotg.api17.advice.exception.sign.CustomAuthenticationException;
+import elbo.dotg.api17.advice.exception.sign.InvalidCredentialsException;
 import elbo.dotg.api17.config.security.JwtToken;
 import elbo.dotg.api17.config.security.JwtTokenProvider;
 import elbo.dotg.api17.dto.request.user.SigninRequest;
@@ -30,7 +30,7 @@ public class SignService {
             Authentication authenticate = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
             return jwtTokenProvider.createToken(authenticate);
         } catch (AuthenticationException e) {
-            throw new CustomAuthenticationException();
+            throw new InvalidCredentialsException();
         }
     }
 }

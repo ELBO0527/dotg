@@ -1,7 +1,7 @@
 package elbo.dotg.api17.advice.exception;
 
 import elbo.dotg.api17.advice.exception.category.CategoryNotFoundException;
-import elbo.dotg.api17.advice.exception.sign.CustomAuthenticationException;
+import elbo.dotg.api17.advice.exception.sign.InvalidCredentialsException;
 import elbo.dotg.api17.advice.exception.user.UserNotFoundException;
 import elbo.dotg.api17.advice.exception.user.UsernameDuplicationException;
 import elbo.dotg.api17.dto.response.common.ApiResponse;
@@ -38,9 +38,9 @@ public class ExceptionAdvice {
         return error(e.getLocalizedMessage());
     }
 
-    @ExceptionHandler(CustomAuthenticationException.class)
+    @ExceptionHandler(InvalidCredentialsException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    protected ApiResponse<String> customAuthenticationException(HttpServletRequest request, CustomAuthenticationException e) {
+    protected ApiResponse<String> customAuthenticationException(HttpServletRequest request, InvalidCredentialsException e) {
         return error(e.getMessage());
     }
 
