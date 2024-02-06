@@ -1,14 +1,17 @@
 package elbo.dotg.api17;
 
+import elbo.dotg.api17.dto.response.common.ApiResponse;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 class mainTest {
 
-    @Builder
     @Getter
     public class ATest {
         private Double sutja;
