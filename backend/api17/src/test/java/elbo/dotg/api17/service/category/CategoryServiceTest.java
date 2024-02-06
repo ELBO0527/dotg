@@ -40,7 +40,7 @@ class CategoryServiceTest {
         List<Category> categoryList = new ArrayList<>();
 
         for (int i=0; i < 1000 ; i++){
-            Category category = Category.of("성능_테스트_카테고리"+i+"번", CategoryType.BOARD_COMMON, null );
+            Category category = Category.of("성능_테스트_카테고리"+ i +"번", CategoryType.BOARD_COMMON, null );
             categoryList.add(category);
         }
         when(categoryRepository.findAll()).thenReturn(categoryList);
@@ -88,6 +88,7 @@ class CategoryServiceTest {
 
     @Test
     void update_category() throws Exception {
+        // request body JSON -> jackson data bind -> 객체 -> new SaveCategoryRequest(객체)
         //given
         SaveCategoryRequest saveCategoryRequest = new SaveCategoryRequest("수정_카테고리", CategoryType.BOARD_COMMON, null);
 
@@ -137,7 +138,7 @@ class CategoryServiceTest {
         when(categoryRepository.findById(categoryId)).thenReturn(Optional.empty());
 
         //when & then
-        assertThrows(CategoryNotFoundException.class, ()->categoryService.findByCategoryId(categoryId));
+        assertThrows(CategoryNotFoundException.class, () -> categoryService.findByCategoryId(categoryId));
     }
 
     @Test
