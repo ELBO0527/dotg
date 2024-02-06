@@ -42,7 +42,7 @@ public class QUser extends EntityPathBase<User> {
 
     public final StringPath passwd = createString("passwd");
 
-    public final StringPath profile_url = createString("profile_url");
+    public final StringPath profileUrl = createString("profileUrl");
 
     public final EnumPath<Role> role = createEnum("role", Role.class);
 

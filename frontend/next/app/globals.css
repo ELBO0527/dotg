@@ -14,6 +14,10 @@
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
   }
+
+  * {
+    @apply transition-colors duration-700;
+  }
 }
 
 body {
