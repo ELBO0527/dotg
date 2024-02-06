@@ -3,6 +3,7 @@ package elbo.dotg.api17.service.board;
 import elbo.dotg.api17.advice.exception.board.BoardNotFoundException;
 import elbo.dotg.api17.advice.exception.category.CategoryNotFoundException;
 import elbo.dotg.api17.domain.board.Board;
+import elbo.dotg.api17.domain.category.Category;
 import elbo.dotg.api17.dto.request.board.SaveBoardRequest;
 import elbo.dotg.api17.dto.request.board.UpdateBoardRequest;
 import elbo.dotg.api17.dto.response.board.BoardResponse;
@@ -51,7 +52,6 @@ public class BoardService {
     }
 
     public BoardResponse saveBoard(final SaveBoardRequest saveBoardRequest){
-
         return BoardResponse.from(boardRepository.save(Board.builder()
                         .title(saveBoardRequest.title())
                         .attachments(saveBoardRequest.attachments())

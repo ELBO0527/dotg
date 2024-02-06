@@ -36,19 +36,19 @@ public class User extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    private String profile_url;
+    private String profileUrl;
 
     @OneToMany(mappedBy = "user")
     private List<Board> boards = new ArrayList<>();
 
     @Builder
-    public User(Long id, String username, String passwd, String name, Role role, String profile_url, List<Board> boards) {
+    public User(Long id, String username, String passwd, String name, Role role, String profileurl, List<Board> boards) {
         this.id = id;
         this.username = username;
         this.passwd = passwd;
         this.name = name;
         this.role = role;
-        this.profile_url = profile_url;
+        this.profileUrl = profileurl;
         this.boards = boards;
     }
 

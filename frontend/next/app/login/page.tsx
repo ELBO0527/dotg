@@ -34,7 +34,7 @@ export default function SigninPage() {
 
   return (
     <>
-      <div className="flex h-screen flex-1 flex-col justify-center px-6 lg:px-8 content-center bg-white">
+      <div className="flex h-screen dark:bg-black flex-1 flex-col justify-center px-6 lg:px-8 content-center bg-white">
         <Header />
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
@@ -42,7 +42,7 @@ export default function SigninPage() {
             src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
             alt="Your Company"
           />
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+          <h2 className="mt-10 dark:text-white text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             로그인
           </h2>
         </div>
@@ -50,7 +50,7 @@ export default function SigninPage() {
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form className="space-y-6" onSubmit={handleSubmit} method="POST">
             <div>
-              <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900">
+              <label htmlFor="username" className="block dark:text-white text-sm font-medium leading-6 text-gray-900">
                 아이디
               </label>
               <div className="mt-2">
@@ -62,18 +62,18 @@ export default function SigninPage() {
                   required
                   value={signinRequest.username}
                   onChange={handleInputChange}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full dark:bg-slate-800 rounded-md border-0 py-1.5 text-gray-400 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
 
             <div>
               <div className="flex items-center justify-between">
-                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+                <label htmlFor="password" className="block dark:text-white text-sm font-medium leading-6 text-gray-900">
                   비밀번호
                 </label>
                 <div className="text-sm">
-                  <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
+                  <a href="#" className="font-semibold dark:text-white text-indigo-600 hover:text-indigo-500">
                     비밀번호를 잊어버렸어요
                   </a>
                 </div>
@@ -87,7 +87,7 @@ export default function SigninPage() {
                   value={signinRequest.passwd}
                   onChange={handleInputChange}
                   required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full dark:bg-slate-800 rounded-md border-0 py-1.5 text-gray-400 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
