@@ -28,7 +28,6 @@ jacocoTestReport {
 	}
 
 	afterEvaluate {
-
 		classDirectories.setFrom(files(classDirectories.files.collect {
 			fileTree(dir: it,
 					exclude: [] + Qdomains)
@@ -82,6 +81,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	implementation 'org.springframework.boot:spring-boot-starter-aop'
 	implementation 'org.flywaydb:flyway-core'
 	implementation 'org.flywaydb:flyway-mysql'
     testImplementation 'org.projectlombok:lombok:1.18.26'
@@ -97,6 +97,7 @@ dependencies {
 	implementation 'com.github.ben-manes.caffeine:caffeine'
 	implementation 'org.flywaydb:flyway-core'
 	implementation 'org.flywaydb:flyway-mysql'
+	implementation 'org.springframework.kafka:spring-kafka'
 
 	implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.1'
 

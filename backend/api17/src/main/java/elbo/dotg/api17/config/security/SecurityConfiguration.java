@@ -34,7 +34,7 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf((http2) -> http2.disable())
+                .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(
                         sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
@@ -48,15 +48,12 @@ public class SecurityConfiguration {
                 )
                 .exceptionHandling(exceptionHandling ->
                         exceptionHandling
-                                .accessDeniedHandler((request, response, accessDeniedException) -> {
-                                    resolver.resolveException(request, response, null, accessDeniedException);
-                                })
-                                .authenticationEntryPoint((request, response, authException) -> {
-                                    resolver.resolveException(request, response, null, authException);
-                                })
+                                .accessDeniedHandler((request, response, accessDeniedException)
+                                        -> resolver.resolveException(request, response, null, accessDeniedException))
+                                .authenticationEntryPoint((request, response, authException)
+                                        -> resolver.resolveException(request, response, null, authException))
                 )
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
-
         return http.build();
     }
 }

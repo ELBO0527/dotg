@@ -5,8 +5,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
-//@PropertySource("classpath:/dev-docker-prob.properties")
-//@PropertySource("classpath:/dev-secure.properties")
 @SpringBootApplication
 @EnableJpaAuditing
 public class Api17Application {

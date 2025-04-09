@@ -57,7 +57,6 @@ public class UserService {
         User user = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
 
         checkUsernameDuplication(updateRequest.getUsername());
-
         user.updateUserNameAndName(updateRequest.getUsername(), updateRequest.getName());
 
         return UserResponse.from(user);

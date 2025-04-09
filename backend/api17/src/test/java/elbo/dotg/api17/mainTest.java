@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,14 +21,24 @@ class mainTest {
     @Test
     void main(){
         String test1 = """
-                1 ㅁㅅㅁ 메소드명[] {
-                2     ㅅㅁㅅ ㅁㄴㅇㄹ
+            2    1 ㅁㅅㅁ 메소드명[] {
+           5     2     ㅅㅁㅅ ㅁㄴㅇㄹ
                 3 }
-                4 ㅁㅅㅁ 메소드명1[ㅇㅈㅇ 매개변수] {
+    7    6        4 ㅁㅅㅁ 메소드명1[ㅇㅈㅇ 매개변수] {
                 5     ㅅㅁㅅ ㅁㄴㅇㄹ
-                6 }
+ 8               6 }
                 """;
-
+        String t1 = "";
+        long tt1 = Long.parseLong(null);
         System.out.println(test1);
+    }
+
+    @Test
+    void isNull() throws Exception {
+        //given
+
+        //when
+
+        //then
     }
 }
