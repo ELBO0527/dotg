@@ -2,7 +2,7 @@ import Header from '@component/header/page'
 
 export default function HomePage() {
   return (
-    <div className="bg-white h-screen dark:bg-black">
+    <div className="bg-white h-screen dark:bg-gray-800">
       <Header />
       <div className="relative isolate px-6 pt-14 lg:px-8">
         <div

@@ -18,6 +18,21 @@ export default function RootLayout({
     <html lang="en">
        <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
+        
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+        (function() {
+          const theme = localStorage.getItem('theme');
+          if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        })();
+        `}}
+        />
+
       </head>
       <body className={inter.className}>{children}</body>
     </html>

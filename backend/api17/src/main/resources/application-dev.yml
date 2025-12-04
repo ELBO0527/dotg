@@ -8,32 +8,33 @@ spring:
     username: dotg
     password: dotg0527
   jpa:
-    open-in-view: true
+    open-in-view: false
     hibernate:
       default_batch_fetch_size: 10
       ddl-auto: update
       #ddl-auto: create-drop
       type:
         descriptor:
-          sql: trace
+          #sql: trace
     properties:
       hibernate:
-        format_sql: true
-        show-sql: true
-
-      # 로그 레벨 설정
-      #logging:
-      #  level:
-      #    org.springframework.web.client: DEBUG
-      #    # hibernate 가 남기는 모든 로그가 debug모드로 설정
-      #    # jpa hibernate가 생성하는 sql이 로거를 통해서 찍히도록 하는 설정
-      #    org.hibernate.SQL: DEBUG
-      #    org.hibernate.type: trace # 실제 들어가는 파라미터값 찍어주는 설정
-
-      #logging:
-      #  level:
-      #    org:
-      #      hibernate:
-      #        type:
-      #          descriptor:
-      #            sql: trace
+        format_sql: false
+        show-sql: false
+        auto_quote_keyword: false
+  kafka:
+      bootstrap-servers: localhost:9092
+      producer:
+        key-serializer: org.apache.kafka.common.serialization.StringSerializer
+        value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      consumer:
+        group-id: topic-group-01
+        auto-offset-reset: earliest
+        key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+        value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      logging:
+        level:
+          org.springframework.web.client: INFO
+          org.hibernate: OFF
+          org.hibernate.SQL: OFF
+          org.hibernate.type.descriptor.sql.BasicExtractor: OFF
+          org.hibernate.type.descriptor.sql.BasicBinder: OFF

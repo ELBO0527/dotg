@@ -34,14 +34,14 @@ export default function SigninPage() {
 
   return (
     <>
-      <div className="flex h-screen dark:bg-black flex-1 flex-col justify-center px-6 lg:px-8 content-center bg-white">
+      <div className="flex h-screen dark:bg-gray-800 flex-1 flex-col justify-center px-6 lg:px-8 content-center bg-white">
         <Header />
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <img
-            className="mx-auto h-10 w-auto"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-            alt="Your Company"
-          />
+        <img
+              className="mx-auto h-10 w-auto"
+              src="/ui.svg"
+              alt="Your Company"
+            />
           <h2 className="mt-10 dark:text-white text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             로그인
           </h2>

@@ -12,7 +12,7 @@ public class KafkaListener {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @org.springframework.kafka.annotation.KafkaListener(topics = "1-topic", groupId = "topic-group-01")
+    //@org.springframework.kafka.annotation.KafkaListener(topics = "1-topic", groupId = "topic-group-01")
     public void sendTest(ConsumerRecord<String, Object> record){
         logger.info("send message : {}", record.value());
         logger.info("send key : {}", record.key());

@@ -56,7 +56,7 @@ class BoardServiceTest {
     }
 
     @Test
-    void find_a_single_board_by_id_with_increase_viewcount() throws Exception {
+    void find_single_board_by_id_with_increase_viewcount() throws Exception {
         //given
         long boardId = 49952L;
         String boardTitle = "boardTitle";

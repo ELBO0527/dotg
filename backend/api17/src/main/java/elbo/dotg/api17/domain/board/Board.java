@@ -35,7 +35,7 @@ public class Board extends BaseTimeEntity {
     @Column//blob으로 변경
     private String content;
 
-    @Column(columnDefinition = "number default 0")
+    @Column
     private long viewCount;
 
     @Column//갯수 제한 걸기
