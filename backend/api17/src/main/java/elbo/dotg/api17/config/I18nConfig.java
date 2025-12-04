@@ -20,7 +20,7 @@ public class I18nConfig implements WebMvcConfigurer {
         CookieLocaleResolver resolver = new CookieLocaleResolver("lang");
         resolver.setDefaultLocale(Locale.getDefault());
         return resolver;
-    };
+    }
 
     @Bean
     public LocaleChangeInterceptor localeChangeInterceptor(){

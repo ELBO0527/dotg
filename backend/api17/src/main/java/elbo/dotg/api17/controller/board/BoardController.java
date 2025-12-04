@@ -27,22 +27,22 @@ public class BoardController {
     }
 
     @GetMapping(value = "/{id}")
-    public ApiResponse<BoardResponse> findBoardById(final long id){
+    public ApiResponse<BoardResponse> findBoardById(@PathVariable final long id){
         return success(boardService.findBoardById(id));
     }
 
     @PostMapping
-    public ApiResponse<BoardResponse> saveBoard(final SaveBoardRequest saveBoardRequest){
+    public ApiResponse<BoardResponse> saveBoard(@RequestBody final SaveBoardRequest saveBoardRequest){
         return success(boardService.saveBoard(saveBoardRequest));
     }
 
     @PutMapping(value = "/{id}")
-    public ApiResponse<BoardResponse> updateBoardById(final long id, final UpdateBoardRequest updateBoardRequest){
+    public ApiResponse<BoardResponse> updateBoardById(@PathVariable final long id,@RequestBody final UpdateBoardRequest updateBoardRequest){
         return success(boardService.updateBoardById(id,updateBoardRequest));
     }
 
     @DeleteMapping(value = "/{id}")
-    public ApiResponse<Long> deleteBoardById(final long id){
+    public ApiResponse<Long> deleteBoardById(@PathVariable final long id){
         return success(boardService.deleteBoardById(id));
     }
 }

@@ -1,20 +1,12 @@
 package elbo.dotg.api17.domain.product;
 
-import elbo.dotg.api17.domain.board.Board;
-import elbo.dotg.api17.domain.category.Category;
-import elbo.dotg.api17.domain.comment.Comment;
 import elbo.dotg.api17.domain.common.BaseTimeEntity;
-import elbo.dotg.api17.domain.order.Order;
-import elbo.dotg.api17.domain.user.User;
-import elbo.dotg.api17.dto.request.board.UpdateBoardRequest;
+import elbo.dotg.api17.domain.order.Orders;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -32,13 +24,15 @@ public class Product extends BaseTimeEntity {
     @Column(name = "product_name")
     private String name;
 
-    @Column(columnDefinition = "number default 0")
+    @Column
     private long price;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id")
-    private Order order;
+    @Column
+    private long quantity;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "orders_id")
+    private Orders orders;
 
     /*@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
@@ -49,11 +43,26 @@ public class Product extends BaseTimeEntity {
     private User user;*/
 
     @Builder
-    public Product(Long id, String name, long price, Category category, User user) {
+    public Product(Long id, String name, long price, long quantity) {
         this.id = id;
         this.name = name;
         this.price = price;
+        this.quantity = quantity;
         //this.category = category;
         //this.user = user;
+    }
+
+    public void validQuantity(Long quantity) {
+        if (quantity > this.quantity){
+            throw new IllegalStateException("재고는 0보다 작을 수 없습니다.");
+        }
+    }
+
+    public void decrease(){
+        if (quantity <= 0){
+            throw new IllegalStateException("재고는 0보다 작을 수 없습니다.");
+
+        }
+        quantity -= 1;
     }
 }

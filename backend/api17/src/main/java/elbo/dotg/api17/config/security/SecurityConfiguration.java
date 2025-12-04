@@ -19,7 +19,7 @@ public class SecurityConfiguration {
 
     private final JwtTokenProvider jwtTokenProvider;
     private final HandlerExceptionResolver resolver;
-    private final String[] accessUrls = {"/error", "/api/v1/signin", "/api/v1/signup"};
+    private final String[] accessUrls = {"/error", "/api/v1/signin", "/api/v1/signup", "/api/v1/orders", "/api/v1/products", "/api/v1/portfolios/**"};
 
     public SecurityConfiguration(JwtTokenProvider jwtTokenProvider, @Qualifier("handlerExceptionResolver") HandlerExceptionResolver resolver) {
         this.jwtTokenProvider = jwtTokenProvider;
@@ -42,8 +42,8 @@ public class SecurityConfiguration {
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorizes ->
                         authorizes
-                                .requestMatchers("/api/v1/categories/**", "/api/v1/users/**", "/api/v1/boards/**").hasRole("USER")
                                 .requestMatchers(accessUrls).permitAll()
+                                .requestMatchers("/api/v1/categories/**", "/api/v1/users/**", "/api/v1/boards/**").hasRole("USER")
                                 .anyRequest().authenticated()
                 )
                 .exceptionHandling(exceptionHandling ->

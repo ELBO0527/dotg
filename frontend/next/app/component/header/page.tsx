@@ -5,7 +5,7 @@ import { Dialog } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 
 const navigation = [
-  { name: '상품', href: '/product' },
+  { name: '계산기', href: '/portfolio' },
   { name: '게시판', href: '/board' },
   { name: '시장', href: '/market' },
   { name: '소개', href: '/introduce' },
@@ -49,7 +49,7 @@ export default function Header() {
             <span className="sr-only">outwoo</span>
             <img
               className="h-8 w-auto"
-              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+              src="/ui.svg"
               alt="/"
             />
           </a>
