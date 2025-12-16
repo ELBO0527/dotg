@@ -1,10 +1,38 @@
+import com.google.genai.Client;
+import com.google.genai.types.GenerateContentConfig;
+import com.google.genai.types.GenerateContentResponse;
+import com.google.genai.types.Part;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
-        System.out.println(solution(new String[]{"muzi", "ryan", "frodo", "neo"}, new String[]{"muzi frodo", "muzi frodo", "ryan muzi", "ryan muzi", "ryan muzi", "frodo muzi", "frodo ryan", "neo muzi"}));
+    public static void main(String[] args) throws IOException {
+        try (Client client = new Client()) {
+            GenerateContentConfig config = GenerateContentConfig.builder()
+                    .responseModalities("TEXT", "IMAGE")
+                    .build();
+
+            GenerateContentResponse response = client.models.generateContent(
+                    "gemini-2.5-flash-image",
+                    "포르쉐를 탄 원숭이",
+                    config);
+
+            for (Part part : response.parts()) {
+                if (part.text().isPresent()) {
+                    System.out.println(part.text().get());
+                } else if (part.inlineData().isPresent()) {
+                    var blob = part.inlineData().get();
+                    if (blob.data().isPresent()) {
+                        Files.write(Paths.get("_01_generated_image.png"), blob.data().get());
+                    }
+                }
+            }
+        }
     }
 
     public static int solution(String[] friends, String[] gifts) {

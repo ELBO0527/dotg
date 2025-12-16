@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+ENV/
+env/
+.eggs/
+*.egg-info/
+*.egg
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Git
+.git/
+.gitignore
+
+# Logs
+*.log
+
+# Test/Build
+.pytest_cache/
+.coverage
+htmlcov/
+build/
+dist/
+
+# DB/data
+db/
+*.db
+*.sqlite3
+
+# Docker (기존 다른 프로젝트 관련)
+docker-compose.yml
+Dockerfile
+
+# Backend/Frontend (다른 서비스들)
+backend/
+frontend/
+
+# 기타
+*.md
+search_results.json
