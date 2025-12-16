@@ -2,7 +2,7 @@ import Header from '@component/header/page'
 
 export default function BoardMain() {
   return (
-    <div className="bg-white dark:bg-black">
+    <div className="bg-white dark:bg-gray-800">
       <Header/>
       <div className="relative isolate h-screen  px-6 pt-14 lg:px-8">
         <div
