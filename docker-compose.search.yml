@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  # 검색 API (네이버 블로그/뉴스, 구글)
+  search-api:
+    image: dotg-search-api:1.0
+    build:
+      context: .
+      dockerfile: Dockerfile.search
+    container_name: dotg-search-api
+    restart: always
+    ports:
+      - "8833:8000"
+    volumes:
+      - .:/app
+    env_file:
+      - .env
