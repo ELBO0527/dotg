@@ -42,3 +42,9 @@ out/
 dev-*.properties
 
 *.md
+tmpclaud*
+
+.gitignore
+
+# DB 데이터 파일 제외
+db/data/*
